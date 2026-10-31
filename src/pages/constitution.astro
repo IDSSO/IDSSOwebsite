@@ -1,0 +1,20 @@
+---
+/** Constitution — "/constitution/" (SPEC.md §6.7). Default template with page title. */
+import Base from '../layouts/Base.astro';
+import PageTitle from '../components/PageTitle.astro';
+import FileEmbed from '../components/FileEmbed.astro';
+
+// Keep this exact filename and path reachable: it is linked from /nmo/ and from external emails.
+const pdf = '/uploads/2025/12/IDSSO-Constitution-December-15-Final-Formatted-Version.pdf';
+const description = 'Read or download the Constitution of the Information and Decision Sciences Student Organization at UIC.';
+---
+<Base title="Constitution" description={description} bodyClass="page">
+  <PageTitle title="Constitution" />
+  <div class="container constitution-content">
+    <FileEmbed href={pdf} label="IDSSO Constitution -December 15 Final Formatted Version" height={1100} />
+  </div>
+</Base>
+
+<style>
+  .constitution-content { padding-bottom: 60px; }
+</style>

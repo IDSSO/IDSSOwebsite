@@ -1,0 +1,18 @@
+---
+/** Neve "big title" block for default-template pages (SPEC.md §4.8). */
+interface Props { title: string; }
+const { title } = Astro.props;
+---
+<div class="page-title-block">
+  <div class="container">
+    <h1 class="page-title">{title}</h1>
+  </div>
+</div>
+
+<style>
+  .page-title-block { padding-top: 60px; padding-bottom: 40px; }
+  .page-title { margin: 0 0 20px; color: var(--nv-text-color); text-align: left; }
+  @media (max-width: 959px) {
+    .page-title-block { padding-top: 40px; padding-bottom: 20px; }
+  }
+</style>

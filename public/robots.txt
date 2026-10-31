@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://idssochi.org/sitemap-index.xml

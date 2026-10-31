@@ -1,0 +1,46 @@
+---
+/** Neve "Scroll to top" button (SPEC.md §4.7). */
+import Icon from './Icon.astro';
+---
+<button class="scroll-to-top" type="button" aria-label="Scroll To Top" data-scroll-to-top hidden>
+  <Icon name="chevron-up" size={16} color="#ffffff" />
+</button>
+
+<style>
+  .scroll-to-top {
+    position: fixed;
+    right: 20px;
+    bottom: 30px;
+    z-index: 999;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+    background: var(--nv-primary-accent);
+    border: 0;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .scroll-to-top[hidden] { display: inline-flex; }
+  .scroll-to-top.is-visible { opacity: 1; visibility: visible; }
+  .scroll-to-top:hover { background: #264a8f; }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-scroll-to-top]');
+  if (btn) {
+    btn.hidden = false;
+    const update = () => {
+      btn.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.9);
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+</script>

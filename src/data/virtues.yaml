@@ -1,0 +1,37 @@
+# Six core virtues rendered as flip cards on /purpose-mission-vision-virtues/ (SPEC.md §6.6).
+# mobile_height = card height at ≤600px (desktop/tablet height is 240px for all cards).
+- title: "Open-Mindedness"
+  lead: "Seeking Understanding Before Judgment:"
+  body: "We approach people, ideas, and problems with curiosity and respect. An open mind allows data, dialogue, and diverse perspectives to shape stronger decisions."
+  practice: "We listen actively, invite perspectives across disciplines, and challenge assumptions through respectful debate."
+  mobile_height: 400
+
+- title: "Informed Perspective"
+  lead: "Thinking with Evidence and Intent"
+  body: "We make decisions grounded in data, reason, and context. An informed perspective means engaging critically with information and applying it responsibly."
+  practice: "We verify facts, cite sources, ask “What do we know—and how do we know it?”, and treat uncertainty as part of analysis."
+  mobile_height: 440
+
+- title: "Constructive Collaboration"
+  lead: "Building Together, Not Just Working Together"
+  body: "We collaborate to create outcomes, not to comply. Constructive collaboration combines skills, data, and insight to produce results greater than what any individual could achieve alone."
+  practice: "We share credit, offer actionable feedback, bridge functional divides, and prioritize tangible progress."
+  mobile_height: 500
+
+- title: "Continuous Development"
+  lead: "Committing to Learning and Improvement"
+  body: "We believe growth is a discipline. Continuous development reflects our commitment to evolving skill, judgment, and understanding through curiosity and consistent improvement."
+  practice: "We pursue learning opportunities, seek and provide feedback, reflect on mistakes, mentor peers, and translate new knowledge into action—supported by regular structures for organizational improvement."
+  mobile_height: 500
+
+- title: "Accountability"
+  lead: "Owning Outcomes Individually and Collectively"
+  body: "We honor commitments, measure results, and learn from the impact of our actions. Accountability protects our standards and strengthens our culture."
+  practice: "We set clear expectations, follow through, communicate early, and use outcomes to improve."
+  mobile_height: 450
+
+- title: "Social Responsibility"
+  lead: "Giving Back to Our Community"
+  body: "We recognize our responsibility to uplift the communities that support us. We seek opportunities to make a positive impact through service, philanthropy, and sharing our expertise."
+  practice: "We volunteer, partner with community organizations, support charitable initiatives, raise funds for scholarships, and apply our skills for the public good."
+  mobile_height: 500

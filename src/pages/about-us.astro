@@ -1,0 +1,118 @@
+---
+/** About Us — "/about-us/" (SPEC.md §6.4). Full-width template; no page title block. */
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import OfficerRow from '../components/OfficerRow.astro';
+import { officers } from '../lib/data';
+
+const description = 'The Information and Decision Sciences Student Organization at UIC is an inclusive, cross-disciplinary community that develops analytical leaders and collaborative problem solvers through hands-on learning, professional development, industry engagement, and mentorship.';
+---
+<Base title="About Us" description={description} bodyClass="page page-template-full-width about-us">
+  <!-- A. Title strip (full, white) -->
+  <section class="about-title alignfull">
+    <div class="inner-wide">
+      <h1>About Us</h1>
+    </div>
+  </section>
+
+  <!-- B. Who we are (wide, off-white) -->
+  <section class="about-who alignwide about-band about-band--offwhite">
+    <div class="about-cols">
+      <div class="about-col about-col--image">
+        <img src="/uploads/2026/01/IDSSO-Bowling-edited.jpg" alt="" width="1211" height="908" loading="lazy" decoding="async" />
+      </div>
+      <div class="about-col about-col--text">
+        <h2>Who we are</h2>
+        <p>The Information and Decision Sciences Student Organization at UIC is <strong>an inclusive, cross-disciplinary community</strong> that develops analytical leaders and collaborative problem solvers through hands-on learning, professional development, industry engagement, and mentorship.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- C. Purpose/mission statement (full, UIC navy) -->
+  <section class="about-mission alignfull has-dark-bg">
+    <div class="inner-wide about-cols">
+      <div class="about-col about-col--text">
+        <h2>We achieve our objectives through our purpose, mission, vision, and virtues</h2>
+        <p>The Information and Decision Sciences Student Organization is an inclusive community of students committed to personal and professional growth. We develop analytical leaders with the mindset, skills, and perspective to turn insight into outcomes.</p>
+        <p>Our virtues form a shared code that unites our members. We recognize how this code leads us to achieve our objectives and supports each member in realizing their full potential.</p>
+        <div class="about-buttons">
+          <Button href="/purpose-mission-vision-virtues/" variant="primary">Our Virtues</Button>
+        </div>
+      </div>
+      <div class="about-col about-col--image">
+        <img src="/uploads/2026/01/IMG_6783-1.jpg" alt="" width="1379" height="1034" loading="lazy" decoding="async" />
+      </div>
+    </div>
+  </section>
+
+  <!-- D. See us in action (wide, off-white) -->
+  <section class="about-action alignwide about-band about-band--offwhite">
+    <div class="about-cols">
+      <div class="about-col about-col--text">
+        <h2>See us in action</h2>
+        <p>From certification panels and AI workshops to case competitions and social events, IDSSO creates hands-on opportunities for students to build skills, grow their networks, and put what they learn into practice.</p>
+        <div class="about-buttons">
+          <Button href="/upcoming-events/" variant="primary">Upcoming Events</Button>
+          <Button href="/news/" variant="wp-outline">Latest News</Button>
+        </div>
+      </div>
+      <div class="about-col about-col--image">
+        <img src="/uploads/2026/04/DSCF2204-1-scaled.jpeg" alt="IDSSO event" width="2560" height="1707" loading="lazy" decoding="async" />
+      </div>
+    </div>
+  </section>
+
+  <!-- E. Executive Board heading (wide, white) -->
+  <section class="about-board-heading alignwide">
+    <h2 class="has-text-align-center">Executive Board</h2>
+    <p class="has-text-align-center board-sub">The officers who lead IDSSO and serve our community.</p>
+  </section>
+
+  <!-- F. Officer rows -->
+  <div class="officers">
+    {officers.map((officer, i) => (
+      <OfficerRow officer={officer} index={i} last={i === officers.length - 1} />
+    ))}
+  </div>
+</Base>
+
+<style>
+  .about-title { background: #ffffff; padding: 0 20px; }
+  .about-title h1 { text-align: left; margin: -10px 0 0; padding: 20px 0 0; }
+  @media (max-width: 959px) {
+    .about-title { padding: 20px; }
+    .about-title h1 { margin: 0 0 25px; padding: 0; }
+  }
+
+  .about-band { padding: 0 20px 80px; }
+  .about-band--offwhite { background: var(--bg-offwhite); }
+  .about-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    width: 100%;
+  }
+  .about-col--text { padding: 40px; }
+  .about-col--image { padding: 0; line-height: 0; }
+  .about-col--image img { width: 100%; height: auto; }
+  @media (max-width: 959px) {
+    .about-band { padding: 40px 20px 20px; }
+    .about-cols { grid-template-columns: 1fr; }
+    .about-col--text { padding: 20px; }
+  }
+
+  .about-mission { background: var(--uic-navy); color: var(--nv-text-dark-bg); padding: 80px 20px; }
+  .about-mission h2, .about-mission p { color: var(--nv-text-dark-bg); }
+  .about-mission .about-col--text { padding: 40px; }
+  @media (max-width: 959px) {
+    .about-mission { padding: 40px 20px; }
+  }
+
+  .about-buttons { display: flex; flex-wrap: wrap; gap: 0.5em; margin-top: 10px; }
+
+  .about-board-heading { background: #ffffff; padding: 60px 20px 20px; }
+  .about-board-heading h2 { color: var(--uic-navy); }
+  .board-sub { color: var(--muted-text); }
+  @media (max-width: 959px) { .about-board-heading { padding: 40px 20px 20px; } }
+  @media (max-width: 599px) { .about-board-heading { padding: 30px 20px 10px; } }
+</style>

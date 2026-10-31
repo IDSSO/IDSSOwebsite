@@ -1,0 +1,72 @@
+# Executive Board (SPEC.md §6.4). Rows render in this order; backgrounds alternate automatically.
+# photo paths are relative to /uploads/ (WordPress year/month folders preserved).
+- name: "Grant Hauskins"
+  role: "President"
+  photo: "2025/12/IMG_50221-1024x1019-3.jpg"
+  bio:
+    - "Hi, I’m Grant Hauskins. I’m the President of IDSSO and a student in the IDS program at UIC. I’m helping lead IDSSO as we build a practical and welcoming community where students can develop professionally, connect with one another, and explore the various pathways within IDS—across Business Analytics, MIS, AI, and Supply Chain & Operations."
+    - "This year, my priority is creating more space for others to step up, contribute, and lead. If you’d like to get involved or are unsure where to start, please don’t hesitate to connect with me."
+  links:
+    linkedin: "https://www.linkedin.com/in/granthauskins"
+    mail: "mailto:ghaus@uic.edu"
+    link: "https://grant.hauskins.com"
+
+- name: "Aleksandra Siuchta"
+  role: "Vice President"
+  photo: "2026/01/IMG_8307.jpg"
+  bio:
+    - "Hello, I’m Aleksandra, and I am a senior undergraduate majoring in Information and Decision Sciences with a concentration in Business Analytics. I am passionate about building effective processes and using data analysis to make decisions, and I am excited to apply these skills to further IDSSO’s mission."
+    - "Over the coming months, I hope to leave behind a solid foundation and a lasting community that will continue to create valuable opportunities for UIC students both this year and well into the future."
+    - "Please feel free to reach out to me or any member of our team if you have questions about IDSSO or how to get involved."
+  links:
+    linkedin: "https://www.linkedin.com/in/aleksandra-s-03825b292/"
+    mail: "mailto:asiuc@uic.edu"
+
+- name: "Nabila Baklia"
+  role: "Secretary"
+  photo: "2025/12/thumbnail_Headshot1-edited.jpg"
+  bio:
+    - "Hi, I’m Nabila! I’m a Senior, IDS major, with a concentration in Business Analytics. I joined IDSSO to further my professional development, and to help create opportunities for IDS students to learn more about their major and the different pathways they can explore. I’m also passionate about helping UIC Business students understand how IDS connects to essential business functions across their majors."
+    - "During this semester, I aim to create a supportive space for UIC Business students to grow their network, learn what it means to be a professional and leader, and make strides in their goals."
+    - "Please feel free to reach out if you’d like to connect!"
+  links:
+    linkedin: "https://www.linkedin.com/in/nabila-baklia-7a7654283/"
+    mail: "mailto:nbakl@uic.edu"
+
+- name: "Xavier Jalem"
+  role: "Treasurer"
+  photo: "2025/12/IMG_6769.gif"
+  bio:
+    - "My name is Xavier, and I’m a senior, majoring in IDS, with a concentration in MIS. I joined IDSSO to help procure an environment that fosters growth and community. Additionally, I wanted to help underclassmen find a place where they can connect with others who share their interest in what IDS has to offer. We can all achieve more by working together and lifting each other up. When I was an underclassman, I longed for a place to share my passion for my major. Although I was unable to find it, I take pleasure in the opportunity to bring it to someone else."
+    - "Over the next year, I aim to bring to life what I was looking for in the past. I want to help make IDS and the business world more approachable for everyone."
+    - "My line is always open to anyone seeking advice, learning, or direction. Please never hesitate to reach out. I am more than willing to help fellow students!"
+  links:
+    linkedin: "https://www.linkedin.com/in/xavier-jalem/"
+    mail: "mailto:xjale2@uic.edu"
+
+- name: "Charlotte Tran"
+  role: "Director of Marketing"
+  photo: "2026/04/Charlotte-Tran.png"
+  bio:
+    - "Bio coming soon"
+  links:
+    linkedin: "https://www.linkedin.com/in/charlotte-t-tran-43355b380/"
+    mail: "mailto:ttran265@uic.edu"
+
+- name: "Trinity Montgomery"
+  role: "Director of External Affairs"
+  photo: "2026/04/1742164843646.jpg"
+  bio:
+    - "Bio coming soon"
+  links:
+    linkedin: "https://www.linkedin.com/in/trinity-montgomery/"
+    mail: "mailto:tmont@uic.edu"
+
+- name: "Karen Cano"
+  role: "Director of Membership Development"
+  photo: "2026/04/1706579831174.jpg"
+  bio:
+    - "Bio coming soon"
+  links:
+    linkedin: "https://www.linkedin.com/in/karen-cano-romero/"
+    mail: "mailto:kcano8@uic.edu"

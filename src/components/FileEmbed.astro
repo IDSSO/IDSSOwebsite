@@ -1,0 +1,50 @@
+---
+/** WP core "File" block (SPEC.md §6.7): inline PDF embed + link + Download button. */
+import Button from './Button.astro';
+
+interface Props {
+  href: string;
+  label: string;
+  height?: number;
+}
+const { href, label, height = 1100 } = Astro.props;
+---
+<div class="wp-block-file" data-file-block>
+  <object
+    class="wp-block-file__embed"
+    data={href}
+    type="application/pdf"
+    style={`width:100%;height:${height}px;`}
+    aria-label={`Embed of ${label}.`}
+  >
+    <p class="file-fallback">Your browser cannot display the PDF inline. <a href={href}>Open {label}</a>.</p>
+  </object>
+  <div class="wp-block-file__row">
+    <a href={href} class="wp-block-file__link">{label}</a>
+    <Button href={href} variant="wp-default" download={true} class="wp-block-file__button">Download</Button>
+  </div>
+</div>
+
+<style>
+  .wp-block-file { margin-bottom: 30px; }
+  .wp-block-file__embed { display: block; margin-bottom: 8px; }
+  .wp-block-file__row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .wp-block-file__link { word-break: break-word; }
+  .file-fallback { padding: 20px; background: var(--nv-light-bg); }
+  /* Hide the inline embed where PDFs cannot render inline (mirrors WP behavior on iOS Safari) */
+  .wp-block-file.no-pdf .wp-block-file__embed { display: none; }
+</style>
+
+<script>
+  // WordPress hides the <object> on browsers that cannot render PDFs inline (notably iOS Safari).
+  const block = document.querySelector('[data-file-block]');
+  const ua = navigator.userAgent;
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  if (block && isIOS) block.classList.add('no-pdf');
+</script>

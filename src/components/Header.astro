@@ -1,0 +1,234 @@
+---
+/**
+ * Neve Header Builder equivalent (SPEC.md §4.4):
+ * - desktop (≥960px): logo left, flat uppercase menu right
+ * - mobile (<960px): logo left, hamburger right; off-canvas panel slides in from the left (360px)
+ */
+import site from '../data/site.json';
+import nav from '../data/nav.json';
+import Icon from './Icon.astro';
+
+const currentPath = Astro.url.pathname.replace(/\/+$/, '/') || '/';
+const isActive = (href: string) => (href === '/' ? currentPath === '/' : currentPath.startsWith(href));
+---
+<header id="header" class="site-header">
+  <div class="container header-row">
+    <div class="site-logo">
+      <a href="/" class="brand" aria-label={site.logo.ariaLabel} rel="home">
+        <img
+          src={site.logo.src}
+          width={site.logo.width}
+          height={site.logo.height}
+          alt=""
+          class="logo-img"
+          loading="eager"
+          decoding="async"
+        />
+      </a>
+    </div>
+
+    <nav id="nv-primary-navigation" class="primary-nav" aria-label="Primary Menu">
+      <ul class="primary-menu">
+        {nav.map((item) => (
+          <li class:list={['menu-item', { 'current-menu-item': isActive(item.href) }]}>
+            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Navigation Menu"
+      aria-expanded="false"
+      aria-controls="header-menu-sidebar"
+      data-menu-open
+    >
+      <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+
+  <div class="header-menu-sidebar-overlay" data-menu-close hidden></div>
+  <div id="header-menu-sidebar" class="header-menu-sidebar" aria-hidden="true">
+    <div class="header-menu-sidebar-inner">
+      <button class="close-sidebar-panel" type="button" aria-label="Close menu" data-menu-close>
+        <Icon name="close" size={20} />
+      </button>
+      <nav class="mobile-nav" aria-label="Mobile Menu">
+        <ul class="mobile-menu">
+          {nav.map((item) => (
+            <li class:list={['menu-item', { 'current-menu-item': isActive(item.href) }]}>
+              <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: relative;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--nv-light-bg);
+    z-index: 1000;
+  }
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 60px;
+  }
+  .site-logo { padding: 10px 0; display: flex; align-items: center; }
+  .brand { display: inline-flex; align-items: center; }
+  .logo-img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 120px;
+  }
+  @media (min-width: 576px) { .logo-img { max-width: 180px; } }
+  @media (min-width: 960px) { .logo-img { max-width: 350px; } }
+
+  /* Desktop menu */
+  .primary-nav { display: none; }
+  .primary-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 0 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .primary-menu li { margin: 0; }
+  .primary-menu a {
+    display: inline-flex;
+    align-items: center;
+    height: 25px;
+    padding: 0;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: var(--menu-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .primary-menu a:hover,
+  .primary-menu a:focus { color: var(--menu-hover); text-decoration: none; }
+  .primary-menu .current-menu-item > a { color: var(--menu-color); }
+
+  /* Hamburger */
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--menu-color);
+    border-radius: 3px;
+    padding: 10px 15px;
+    color: var(--menu-color);
+    cursor: pointer;
+  }
+  .bars { display: flex; flex-direction: column; gap: 4px; width: 20px; }
+  .bars span { display: block; height: 2px; width: 100%; background: currentColor; border-radius: 1px; }
+
+  @media (min-width: 960px) {
+    .primary-nav { display: block; }
+    .menu-toggle, .header-menu-sidebar, .header-menu-sidebar-overlay { display: none !important; }
+  }
+
+  /* Off-canvas panel (slide from left) */
+  .header-menu-sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1001;
+  }
+  .header-menu-sidebar-overlay[hidden] { display: none; }
+  .header-menu-sidebar-overlay.is-visible { opacity: 1; }
+
+  .header-menu-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    height: 100dvh;
+    width: 360px;
+    max-width: 100%;
+    background: #ffffff;
+    color: var(--nv-text-color);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1002;
+    overflow-y: auto;
+    visibility: hidden;
+  }
+  .header-menu-sidebar.is-open { transform: translateX(0); visibility: visible; }
+  .header-menu-sidebar-inner { padding: 20px; }
+  .close-sidebar-panel {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: 0;
+    padding: 8px;
+    color: var(--nv-text-color);
+    cursor: pointer;
+    display: inline-flex;
+  }
+  .mobile-nav { margin-top: 48px; }
+  .mobile-menu { list-style: none; margin: 0; padding: 0; }
+  .mobile-menu li { margin: 0; border-bottom: 1px solid var(--nv-light-bg); }
+  .mobile-menu a {
+    display: block;
+    padding: 12px 0;
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--menu-color);
+    text-decoration: none;
+    text-align: left;
+  }
+  .mobile-menu a:hover, .mobile-menu a:focus { color: var(--menu-hover); }
+</style>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-open]');
+  const panel = document.getElementById('header-menu-sidebar');
+  const overlay = document.querySelector<HTMLElement>('.header-menu-sidebar-overlay');
+  const closers = document.querySelectorAll<HTMLElement>('[data-menu-close]');
+
+  function setOpen(open: boolean) {
+    if (!toggle || !panel || !overlay) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    panel.setAttribute('aria-hidden', String(!open));
+    panel.classList.toggle('is-open', open);
+    document.body.classList.toggle('is-menu-sidebar', open);
+    if (open) {
+      overlay.hidden = false;
+      requestAnimationFrame(() => overlay.classList.add('is-visible'));
+      panel.querySelector<HTMLElement>('a, button')?.focus();
+    } else {
+      overlay.classList.remove('is-visible');
+      window.setTimeout(() => { overlay.hidden = true; }, 300);
+      toggle.focus();
+    }
+  }
+
+  toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+  closers.forEach((el) => el.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && panel?.classList.contains('is-open')) setOpen(false);
+  });
+  window.matchMedia('(min-width: 960px)').addEventListener('change', (e) => {
+    if (e.matches) setOpen(false);
+  });
+</script>

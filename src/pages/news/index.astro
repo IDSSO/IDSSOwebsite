@@ -1,0 +1,19 @@
+---
+/** News — "/news/" (SPEC.md §6.5). Posts index, Neve "alternative" list layout, no sidebar. */
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+
+const posts = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const description = 'News and announcements from the Information and Decision Sciences Student Organization at UIC.';
+---
+<Base title="News" description={description} bodyClass="blog archive">
+  <div class="container news-content">
+    <PostList posts={posts} />
+  </div>
+</Base>
+
+<style>
+  .news-content { padding-top: 60px; padding-bottom: 60px; }
+  @media (max-width: 959px) { .news-content { padding-top: 40px; padding-bottom: 40px; } }
+</style>

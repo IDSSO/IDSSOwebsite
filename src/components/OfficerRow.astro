@@ -1,0 +1,93 @@
+---
+/** One Executive Board row (SPEC.md §6.4 F). Data from src/data/officers.yaml. */
+import SocialLinks, { type SocialItem } from './SocialLinks.astro';
+
+export interface Officer {
+  name: string;
+  role: string;
+  photo: string;                 // path relative to /uploads/
+  bio: string[];
+  links?: { linkedin?: string; mail?: string; link?: string };
+}
+
+interface Props {
+  officer: Officer;
+  index: number;      // 0-based; odd rows get the alternate background
+  last?: boolean;
+}
+const { officer, index, last = false } = Astro.props;
+
+const socials: SocialItem[] = [];
+if (officer.links?.linkedin) socials.push({ name: 'LinkedIn', icon: 'linkedin', url: officer.links.linkedin, color: '#0d66c2' });
+if (officer.links?.mail) socials.push({ name: 'Mail', icon: 'mail', url: officer.links.mail, color: '#272626' });
+if (officer.links?.link) socials.push({ name: 'Link', icon: 'link', url: officer.links.link, color: '#272626' });
+---
+<section class:list={['officer-row', 'alignwide', { 'officer-row--alt': index % 2 === 1, 'officer-row--last': last }]}>
+  <div class="officer-grid">
+    <div class="officer-photo-col">
+      <img
+        class="officer-photo"
+        src={`/uploads/${officer.photo}`}
+        alt={officer.name}
+        width="300"
+        height="300"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <div class="officer-info-col">
+      <h3 class="officer-name">{officer.name}</h3>
+      <p class="officer-role">{officer.role}</p>
+      {officer.bio.map((para) => <p class="officer-bio">{para}</p>)}
+      {socials.length > 0 && <SocialLinks items={socials} style="logos-only" class="officer-socials" />}
+    </div>
+  </div>
+</section>
+
+<style>
+  .officer-row {
+    background: #ffffff;
+    padding: 40px 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .officer-row--alt { background: var(--bg-row-alt); }
+  .officer-row--last { border-bottom: 0; }
+  .officer-grid {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    align-items: center;
+    width: 100%;
+  }
+  .officer-photo-col { display: flex; justify-content: center; }
+  .officer-photo {
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 9999px;
+    height: auto;
+  }
+  .officer-info-col { padding: 20px 20px 20px 30px; }
+  .officer-name { color: var(--uic-navy); font-size: 28px; line-height: 1.3; margin: 0 0 8px; }
+  .officer-role {
+    color: var(--uic-red);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  .officer-bio { line-height: 1.5; margin: 0 0 8px; }
+  .officer-socials { margin-top: 16px; }
+
+  @media (max-width: 959px) {
+    .officer-row { padding: 30px 20px; }
+  }
+  @media (max-width: 781px) {
+    .officer-row { padding: 20px; }
+    .officer-grid { grid-template-columns: 1fr; gap: 10px; }
+    .officer-photo { max-width: 240px; }
+    .officer-info-col { padding: 10px 0; text-align: center; }
+    .officer-info-col :global(.social-links) { justify-content: center; }
+  }
+</style>

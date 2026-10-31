@@ -1,0 +1,106 @@
+---
+/** Otter "Timeline" block equivalent (SPEC.md §6.3). Renders items from src/data/events.yaml. */
+import Button from './Button.astro';
+
+export interface TimelineEvent {
+  date_label: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  description_position?: 'before' | 'after';
+  time?: string;
+  location?: string;
+  register_url?: string;
+  register_label?: string;
+}
+
+interface Props { items: TimelineEvent[]; }
+const { items } = Astro.props;
+---
+<div class="o-timeline">
+  {items.map((ev) => (
+    <div class="o-timeline-item">
+      <div class="o-timeline-marker" aria-hidden="true"><span class="o-timeline-dot"></span></div>
+      <div class="o-timeline-card">
+        <h2 class="o-timeline-date">{ev.date_label}</h2>
+        <h3 class="o-timeline-title">{ev.title}</h3>
+        {ev.subtitle && <h4 class="o-timeline-subtitle">{ev.subtitle}</h4>}
+
+        {ev.description && ev.description_position !== 'after' && <p>{ev.description}</p>}
+
+        {(ev.time || ev.location) && (
+          <p>
+            {ev.time && <><strong>Time:</strong> {ev.time}</>}
+            {ev.time && ev.location && <br />}
+            {ev.location && <><strong>Location:</strong> {ev.location}</>}
+          </p>
+        )}
+
+        {ev.description && ev.description_position === 'after' && <p>{ev.description}</p>}
+
+        {ev.register_url && (
+          <p class="o-timeline-action">
+            <Button href={ev.register_url} variant="timeline">{ev.register_label ?? 'Register'}</Button>
+          </p>
+        )}
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .o-timeline {
+    position: relative;
+    max-width: 1200px;
+  }
+  .o-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 14px;
+    width: 2px;
+    background: var(--rule);
+  }
+  .o-timeline-item {
+    position: relative;
+    padding: 10px 25px 10px 70px;
+  }
+  .o-timeline-marker {
+    position: absolute;
+    left: -6px;
+    top: 15px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 4px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  .o-timeline-dot {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--rule);
+  }
+  .o-timeline-card {
+    background: var(--timeline-card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  .o-timeline-date { color: var(--nv-primary-accent); margin-bottom: 10px; }
+  .o-timeline-title { color: var(--nv-c-2); margin-bottom: 10px; }
+  .o-timeline-subtitle { font-size: 16px; line-height: 1.5; margin-bottom: 16px; }
+  .o-timeline-card p { margin-bottom: 16px; }
+  .o-timeline-action { margin-top: 20px; margin-bottom: 0; }
+  @media (max-width: 599px) {
+    .o-timeline-item { padding-right: 0; padding-left: 56px; }
+    .o-timeline-marker { left: -6px; }
+  }
+</style>

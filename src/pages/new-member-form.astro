@@ -1,0 +1,40 @@
+---
+/** New Member Form — "/new-member-form/" (SPEC.md §6.2). Default template, title hidden. */
+import Base from '../layouts/Base.astro';
+import MemberForm from '../components/MemberForm.astro';
+
+const description = 'Complete the form to join the Information & Decision Sciences Student Organization (IDSSO) at UIC, receive event updates, and access opportunities for leadership and involvement.';
+---
+<Base title="New Member Form" description={description} bodyClass="page nv-without-title">
+  <div class="container page-content">
+    <hr class="wp-separator" />
+    <div class="wp-columns">
+      <div class="wp-column">
+        <h2>Join the Information &amp; Decision Sciences Student Organization (IDSSO)!</h2>
+        <p>We’re excited that you’re interested in becoming part of our community at UIC. This form helps us understand your academic background, interests, and how we can best support your growth as an analytical leader. Whether you’re passionate about data, supply chain, programming, AI, problem solving, or professional development, IDSSO offers opportunities to connect, learn, and get involved.</p>
+        <figure class="wp-block-image">
+          <img src="/uploads/2025/12/IDSSO-Logo-1125Revised-2-edited.png" alt="" width="1024" height="768" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+      <div class="wp-column">
+        <p>Complete the form below to join our mailing list, receive event updates, and access opportunities for leadership and involvement within the organization.</p>
+        <MemberForm />
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .wp-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+    align-items: flex-start;
+  }
+  .wp-column { flex: 1 1 100%; min-width: 0; }
+  @media (min-width: 782px) {
+    .wp-column { flex: 1 1 0; }
+  }
+  .wp-block-image { margin: 0; }
+  .wp-block-image img { width: 100%; height: auto; }
+</style>

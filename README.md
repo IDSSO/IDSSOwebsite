@@ -117,3 +117,5 @@ Zero-third-party alternative (not built): a Cloudflare Pages Function at `/api/m
 3. Typo policy: fix "Orientaion" and the other flagged items in `CONTENT_NOTES.md`, or keep verbatim for the first release.
 4. Board transition: when to update `src/data/officers.yaml` for the 2026–2027 board.
 5. Where to archive the WordPress export and unused media.
+
+Posted

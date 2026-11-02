@@ -3,7 +3,7 @@
   // dashboard must match "name" below, or `wrangler deploy` is rejected.
   // Build command: npm run build     Deploy command: npx wrangler deploy
   // Cloudflare Pages ignores this file (it uses the dashboard build settings instead).
-  "name": "idssochi",
+  "name": "idssowebsite",
   "compatibility_date": "2026-11-02",
   "assets": {
     "directory": "./dist",

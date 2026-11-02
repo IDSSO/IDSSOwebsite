@@ -99,7 +99,7 @@ Two Cloudflare products work. Pick one; do not use both.
 | Root directory | `/` (leave blank) |
 | Production branch | `main` |
 
-The Worker's name in the dashboard must equal `"name"` in `wrangler.jsonc` (`idssochi`). Rename one or the other if they differ. `_redirects` and `404.html` from `dist/` are honoured by Workers static assets.
+The Worker's name in the dashboard must equal `"name"` in `wrangler.jsonc` (`idssowebsite`). Rename one or the other if they differ. `_redirects` and `404.html` from `dist/` are honoured by Workers static assets.
 
 **Option B: Pages (Workers & Pages → Create → Pages → Connect to Git).** Framework preset **Astro**, build command `npm run build`, output directory `dist`. Pages ignores `wrangler.jsonc`.
 

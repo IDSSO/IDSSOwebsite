@@ -1,0 +1,188 @@
+---
+/**
+ * New Member Form (SPEC.md §6.2 + §10.1).
+ * Posts to PUBLIC_FORM_ENDPOINT (Formspree / Web3Forms / Cloudflare Function compatible).
+ * When the endpoint is unset the form renders disabled with a fallback notice. Never fakes success.
+ */
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT?.trim() || '';
+const enabled = endpoint.length > 0;
+
+const majors = [
+  'Information and Decision Sciences', 'Accounting', 'Marketing', 'Business Admin',
+  'Finance', 'Computer Science', 'Engineering', 'Economics', 'Other',
+];
+const years = ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate'];
+const interests = [
+  'Analytics & Data', 'Supply Chain & Operations', 'Information Systems',
+  'Programming (Python/SQL/Java)', 'AI / Machine Learning',
+  'Networking & Professional Development', 'Leadership Roles', 'Social Events',
+];
+const successPath = '/new-member-form/?submitted=1';
+---
+<div class="member-form-wrap" data-member-form>
+  <p class="form-status form-status--success" data-form-success hidden role="status">Thank you! You’re on the list.</p>
+  <p class="form-status form-status--error" data-form-error hidden role="alert"></p>
+
+  {!enabled && (
+    <p class="form-status form-status--notice" role="status">
+      Form temporarily unavailable — email <a href="mailto:eboard@idssochi.org">eboard@idssochi.org</a> to join.
+    </p>
+  )}
+
+  <form
+    class="o-form"
+    method="POST"
+    action={enabled ? endpoint : undefined}
+    data-endpoint={enabled ? endpoint : undefined}
+    data-success={successPath}
+    novalidate={false}
+  >
+    <input type="hidden" name="_subject" value="New IDSSO Member Form Submission" />
+    <input type="hidden" name="_next" value={new URL(successPath, 'https://idssochi.org').href} />
+    <input type="hidden" name="_redirect" value={new URL(successPath, 'https://idssochi.org').href} />
+
+    <fieldset class="o-form-fields" disabled={!enabled}>
+      <legend class="screen-reader-text">New Member Form</legend>
+
+      <div class="o-form-field">
+        <label for="mf-name">Name <span class="required" aria-hidden="true">*</span></label>
+        <input id="mf-name" type="text" name="name" required autocomplete="name" />
+      </div>
+
+      <div class="o-form-field">
+        <label for="mf-email">UIC Email <span class="required" aria-hidden="true">*</span></label>
+        <input id="mf-email" type="email" name="email" required autocomplete="email" />
+      </div>
+
+      <div class="o-form-field">
+        <label for="mf-major">Major <span class="required" aria-hidden="true">*</span></label>
+        <select id="mf-major" name="major" required>
+          {majors.map((m) => <option value={m}>{m}</option>)}
+        </select>
+      </div>
+
+      <div class="o-form-field">
+        <label for="mf-year">Year in School <span class="required" aria-hidden="true">*</span></label>
+        <select id="mf-year" name="year" required>
+          {years.map((y) => <option value={y}>{y}</option>)}
+        </select>
+      </div>
+
+      <fieldset class="o-form-field o-form-group">
+        <legend>Interests</legend>
+        <div class="o-form-choices o-form-choices--stacked">
+          {interests.map((i, idx) => (
+            <label class="o-form-choice">
+              <input type="checkbox" name="interests[]" value={i} id={`mf-interest-${idx}`} />
+              <span>{i}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset class="o-form-field o-form-group">
+        <legend>Are you interested in volunteer/leadership opportunities?</legend>
+        <div class="o-form-choices o-form-choices--inline">
+          <label class="o-form-choice"><input type="radio" name="leadership_interest" value="Yes" /> <span>Yes</span></label>
+          <label class="o-form-choice"><input type="radio" name="leadership_interest" value="No" /> <span>No</span></label>
+        </div>
+      </fieldset>
+
+      <!-- Honeypot: must stay empty. -->
+      <div class="o-anti-bot" aria-hidden="true">
+        <label for="mf-gotcha">Leave this field empty</label>
+        <input id="mf-gotcha" type="checkbox" name="_gotcha" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="o-form-submit">
+        <button type="submit" class="btn btn--wp-default o-form-button" disabled={!enabled}>Submit</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<style>
+  .o-form { width: 100%; }
+  .o-form-fields { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+  .o-form-field { display: flex; flex-direction: column; gap: 10px; border: 0; padding: 0; margin: 0; min-width: 0; }
+  .o-form-field label, .o-form-group legend { font-size: var(--body-size); font-weight: 400; color: var(--nv-text-color); }
+  .o-form-group legend { padding: 0; margin-bottom: 10px; }
+  .o-form-field input[type='text'],
+  .o-form-field input[type='email'],
+  .o-form-field select {
+    width: 100%;
+    height: 42px;
+    padding: 8px;
+    border: 1px solid var(--nv-text-color);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--nv-text-color);
+    font: inherit;
+  }
+  .o-form-field select { appearance: auto; }
+  .o-form-choices { display: flex; flex-direction: column; gap: 8px; }
+  .o-form-choices--inline { flex-direction: row; flex-wrap: wrap; gap: 20px; }
+  .o-form-choice { display: inline-flex; align-items: center; gap: 8px; font-weight: 400; cursor: pointer; }
+  .o-form-choice input { width: 18px; height: 18px; margin: 0; accent-color: var(--nv-primary-accent); }
+  .required { color: var(--uic-red); }
+  .o-anti-bot {
+    position: absolute !important;
+    left: -9999px;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    opacity: 0;
+  }
+  .o-form-submit { margin-top: 4px; }
+  .o-form-button { font: inherit; cursor: pointer; }
+  .o-form-button[disabled] { opacity: 0.5; cursor: not-allowed; }
+  .form-status { padding: 12px 16px; border-radius: 4px; margin-bottom: 20px; }
+  .form-status--success { background: #e6f4ea; color: #1e4620; border: 1px solid #a8d5b5; }
+  .form-status--error { background: #fdecea; color: #611a15; border: 1px solid #f5c2c0; }
+  .form-status--notice { background: var(--nv-light-bg); color: var(--nv-text-color); border: 1px solid var(--rule); }
+</style>
+
+<script>
+  const wrap = document.querySelector<HTMLElement>('[data-member-form]');
+  const form = wrap?.querySelector<HTMLFormElement>('form');
+  const success = wrap?.querySelector<HTMLElement>('[data-form-success]');
+  const error = wrap?.querySelector<HTMLElement>('[data-form-error]');
+
+  // Success state is driven by ?submitted=1 (set by the provider redirect or by our fetch handler).
+  if (success && new URLSearchParams(location.search).get('submitted') === '1') {
+    success.hidden = false;
+    form?.setAttribute('hidden', '');
+  }
+
+  // Progressive enhancement: submit via fetch so the user stays on-site; falls back to a normal POST.
+  if (form && form.dataset.endpoint) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (error) { error.hidden = true; error.textContent = ''; }
+      const button = form.querySelector<HTMLButtonElement>('button[type=submit]');
+      if (button) button.disabled = true;
+      try {
+        const res = await fetch(form.dataset.endpoint!, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+          location.assign(form.dataset.success || '/new-member-form/?submitted=1');
+          return;
+        }
+        let message = `Submission failed (${res.status}). Please try again or email eboard@idssochi.org.`;
+        try {
+          const data = await res.json();
+          if (data?.error) message = String(data.error);
+          else if (Array.isArray(data?.errors)) message = data.errors.map((x: { message?: string }) => x.message).filter(Boolean).join(' ');
+          else if (data?.message) message = String(data.message);
+        } catch { /* keep default message */ }
+        if (error) { error.textContent = message; error.hidden = false; }
+      } catch {
+        if (error) { error.textContent = 'Network error. Please try again or email eboard@idssochi.org.'; error.hidden = false; }
+      } finally {
+        if (button) button.disabled = false;
+      }
+    });
+  }
+</script>

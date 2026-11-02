@@ -1,0 +1,38 @@
+{
+  "title": "Information and Decision Sciences Student Organization",
+  "tagline": "IDSSO",
+  "url": "https://idssochi.org",
+  "lang": "en-US",
+  "logo": {
+    "src": "/uploads/2025/12/cropped-IDSSO-Logo.png",
+    "width": 200,
+    "height": 76,
+    "ariaLabel": "Information and Decision Sciences Student Organization IDSSO"
+  },
+  "ogImage": {
+    "src": "/uploads/2025/12/IDSSO-Logo.png",
+    "width": 1456,
+    "height": 736
+  },
+  "icons": {
+    "icon32": "/uploads/2025/12/cropped-Icon-32x32.png",
+    "icon192": "/uploads/2025/12/cropped-Icon-192x192.png",
+    "appleTouch": "/uploads/2025/12/cropped-Icon-180x180.png"
+  },
+  "emails": {
+    "board": "eboard@idssochi.org"
+  },
+  "footer": {
+    "orgLine1": "Information & Decision Sciences Student Organization",
+    "orgLine2": "University of Illinois Chicago",
+    "followLabel": "Follow Us"
+  },
+  "socials": [
+    { "name": "LinkedIn",  "icon": "linkedin",  "url": "https://www.linkedin.com/company/information-and-decision-sciences-student-organization-at-uic", "color": "#0d66c2", "glyph": "#ffffff" },
+    { "name": "Instagram", "icon": "instagram", "url": "https://www.instagram.com/idsso_uic/", "color": "#f00075", "glyph": "#ffffff" },
+    { "name": "Facebook",  "icon": "facebook",  "url": "https://www.facebook.com/p/Idsso-Uic-61587390967378/", "color": "#0866ff", "glyph": "#ffffff" },
+    { "name": "Threads",   "icon": "threads",   "url": "https://www.threads.com/@idsso_uic?xmt=AQF0-2_8n0CwaAoi5OelhuoSUv6Flw7eyGzA-XwZv05BpEM", "color": "#000000", "glyph": "#ffffff" },
+    { "name": "Mail",      "icon": "mail",      "url": "mailto:eboard@idssochi.org", "color": "#f0f0f0", "glyph": "#000000" },
+    { "name": "Link",      "icon": "image",     "url": "https://uic.campusgroups.com/feeds?type=club&type_id=70779&tab=about", "image": "/uploads/2026/02/Generated-image-1.png", "size": 50 }
+  ]
+}

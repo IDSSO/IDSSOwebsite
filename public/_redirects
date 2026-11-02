@@ -1,0 +1,12 @@
+# Cloudflare Pages redirects (SPEC.md §10.4). Legacy WordPress URLs → static equivalents.
+# Note: `_redirects` cannot match query strings, so the WordPress `/?p=ID` form cannot be handled here.
+# Old `/?p=ID` links simply land on the home page, which is acceptable (see README "Redirects").
+/wp-content/uploads/*   /uploads/:splat            301
+/author/*               /news/                     301
+/category/*             /news/                     301
+/feed                   /news/                     301
+/feed/*                 /news/                     301
+/wp-json/*              /                          301
+/wp-admin/*             /                          302
+/wp-login.php           /                          302
+/web-agency-gb-home/    /                          301

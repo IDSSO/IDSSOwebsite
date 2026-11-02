@@ -1,0 +1,9 @@
+[
+  { "label": "Home", "href": "/" },
+  { "label": "New Member Form", "href": "/new-member-form/" },
+  { "label": "Upcoming Events", "href": "/upcoming-events/" },
+  { "label": "About Us", "href": "/about-us/" },
+  { "label": "News", "href": "/news/" },
+  { "label": "Purpose, Mission, & Virtues", "href": "/purpose-mission-vision-virtues/" },
+  { "label": "Constitution", "href": "/constitution/" }
+]

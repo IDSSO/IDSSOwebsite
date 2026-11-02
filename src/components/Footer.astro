@@ -1,0 +1,57 @@
+---
+/**
+ * Neve Footer Builder "footer-bottom" row (SPEC.md §4.5): 3 equal columns, dark background.
+ */
+import site from '../data/site.json';
+import nav from '../data/nav.json';
+import SocialLinks from './SocialLinks.astro';
+---
+<footer id="site-footer" class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col footer-col--text">
+      <p class="footer-org">{site.footer.orgLine1}<br />{site.footer.orgLine2}</p>
+    </div>
+    <div class="footer-col footer-col--pages">
+      <nav aria-label="Footer Menu">
+        <ul class="footer-menu">
+          {nav.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-col footer-col--social">
+      <p class="footer-follow">{site.footer.followLabel}</p>
+      <SocialLinks items={site.socials} style="default" newTab={true} />
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 32px 0;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    align-items: start;
+    text-align: left;
+  }
+  @media (min-width: 960px) {
+    .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  .footer-col p { margin: 0 0 16px; }
+  .footer-col p:last-child { margin-bottom: 0; }
+  .footer-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .footer-menu li { margin: 0 0 6px; }
+  .site-footer a { color: var(--footer-text); text-decoration: none; }
+  .site-footer a:hover, .site-footer a:focus { color: var(--nv-primary-accent); text-decoration: underline; }
+  .footer-follow { font-weight: 400; }
+</style>

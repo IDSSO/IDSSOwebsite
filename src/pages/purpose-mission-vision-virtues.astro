@@ -1,0 +1,105 @@
+---
+/** Purpose, Mission, & Virtues — "/purpose-mission-vision-virtues/" (SPEC.md §6.6). */
+import Base from '../layouts/Base.astro';
+import PageTitle from '../components/PageTitle.astro';
+import FlipCard from '../components/FlipCard.astro';
+import { virtues } from '../lib/data';
+
+const description = 'IDSSO supports students in realizing their full potential as emerging professionals in an increasingly data-driven world. Read our purpose, mission, vision, and six core virtues.';
+---
+<Base title="Purpose, Mission, & Virtues" description={description} bodyClass="page">
+  <PageTitle title="Purpose, Mission, & Virtues" />
+  <div class="container pmv-content">
+
+    <!-- Purpose -->
+    <h2 class="has-text-align-center">Purpose</h2>
+    <section class="purpose-quote">
+      <p class="purpose-quote__text">“To foster an inclusive, cross-disciplinary community that empowers students to grow as analytical leaders and collaborative problem solvers”</p>
+      <p class="purpose-quote__cite">Information and decision sciences student organization Constitution</p>
+    </section>
+    <h4 class="has-text-align-center">IDSSO supports students in realizing their full potential as emerging professionals in an increasingly data-driven world.</h4>
+    <p>We are an inclusive, cross-disciplinary community where students develop into analytical leaders and collaborative problem solvers—growing not only in technical and decision-making skills, but also in confidence, perspective, and professional identity necessary to succeed in complex organizations.</p>
+    <p>We believe that professional development is not limited to coursework or credentials. It is about helping students develop the skills to think critically, collaborate with others, and present themselves as professionals. Through shared learning, meaningful engagement, and peer-driven leadership, members gain clarity about their interests, strengths, and career direction.</p>
+    <p>Our purpose is simple: to help students grow with intention—so they are prepared not just to enter the workforce, but to contribute thoughtfully and responsibly wherever their paths lead.</p>
+    <hr class="wp-separator wp-separator--accent" />
+
+    <!-- Mission -->
+    <h2 class="has-text-align-center">Mission</h2>
+    <blockquote class="wp-block-quote is-style-large">
+      <p>The mission of IDSSO is to provide students with hands-on learning opportunities, professional development programming, industry engagement, and collaborative projects that strengthen analytical, technical, and decision-making skills. IDSSO serves all UIC students interested in Information and Decision Science topics by offering workshops, networking events, panel discussions, mentorship, and leadership opportunities that support academic and career success.</p>
+      <cite>Information and Decision Sciences Student Organization Constitution</cite>
+    </blockquote>
+    <hr class="wp-separator wp-separator--accent" />
+
+    <!-- Vision -->
+    <h2 class="has-text-align-center">Vision</h2>
+    <h4>What We Are Building</h4>
+    <p>The Information and Decision Sciences Student Organization envisions a student-led community that becomes a recognized center for learning, leadership, and professional development in Information and Decision Sciences at UIC and across the Chicago region.</p>
+    <p>We envision a future where our members are actively exploring and developing a deep understanding of IDS topics—such as analytics, information systems, artificial intelligence, and operations management—while also cultivating the professional skills that define effective leaders: communication, collaboration, judgment, and accountability.</p>
+    <p>Our vision is for IDSSO members to drive their own development. They will conceptualize and execute significant initiatives, host conferences and networking events, forge strategic partnerships, and cultivate opportunities that bolster both individual members and the wider campus community. IDSSO will serve as a platform where students develop not only problem-solving acumen but also essential leadership skills for managing people and projects.</p>
+    <p>Beyond campus, IDSSO fosters lasting relationships with alumni, industry partners, and organizations that value thoughtful and capable talent. These partnerships create opportunities for mentorship, experiential learning, and real-world exposure—while positioning IDSSO members as professionals organizations want to recruit.</p>
+    <p><strong>Our long-term aspiration is to be known for the quality of our people.</strong><br />Graduates of the IDSSO community are recognized not only for their technical knowledge and understanding but also for their professionalism, maturity, and ability to work effectively across disciplines.</p>
+    <hr class="wp-separator wp-separator--accent" />
+
+    <!-- Virtues -->
+    <h2 class="has-text-align-center">Virtues</h2>
+    <p class="has-text-align-center">IDSSO is united by members’ adherence to six core virtues:</p>
+    {virtues.map((v) => (
+      <>
+        <FlipCard title={v.title} lead={v.lead} body={v.body} practice={v.practice} mobileHeight={v.mobile_height} />
+        <hr class="wp-separator wp-separator--accent" />
+      </>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .pmv-content { padding-bottom: 60px; }
+
+  .purpose-quote {
+    background: #ffffff;
+    max-width: 1140px;
+    margin: 0 auto 30px;
+    padding: 0 24px;
+    text-align: center;
+  }
+  .purpose-quote__text {
+    font-style: italic;
+    font-size: 28px;
+    line-height: 1.4;
+    color: var(--nv-text-color);
+    margin-bottom: 20px;
+  }
+  .purpose-quote__cite {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-bottom: 0;
+  }
+  @media (max-width: 959px) {
+    .purpose-quote { padding: 64px 24px; }
+    .purpose-quote__text { font-size: 40px; }
+    .purpose-quote__cite { font-size: 12px; }
+  }
+  @media (max-width: 599px) {
+    .purpose-quote { padding: 40px 24px; }
+    .purpose-quote__text { font-size: 32px; }
+  }
+
+  .wp-block-quote.is-style-large {
+    border-left: 0;
+    padding: 0;
+    margin: 0 0 30px;
+    font-size: 1.25em;
+    line-height: 1.5;
+    font-style: normal;
+  }
+  .wp-block-quote.is-style-large p { margin-bottom: 20px; }
+  .wp-block-quote.is-style-large cite {
+    display: block;
+    font-size: 0.72em;
+    font-style: normal;
+    color: var(--muted-text);
+  }
+</style>

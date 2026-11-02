@@ -1,0 +1,92 @@
+---
+/**
+ * WordPress core "Social Icons" look-alike.
+ * style="default": colored round brand badges (36×36 circle, 24×24 white glyph) — footer.
+ * style="logos-only": no circles, 24×24 glyphs in brand/text color — officer rows.
+ */
+import Icon, { type IconName } from './Icon.astro';
+
+export interface SocialItem {
+  name: string;
+  icon: string;          // IconName or "image"
+  url: string;
+  color?: string;        // circle background (default style) or glyph color (logos-only)
+  glyph?: string;        // glyph color (default style)
+  image?: string;        // custom round image badge instead of an SVG
+  size?: number;
+}
+
+interface Props {
+  items: SocialItem[];
+  style?: 'default' | 'logos-only';
+  newTab?: boolean;
+  class?: string;
+}
+
+const { items, style = 'default', newTab = false, class: className } = Astro.props;
+const external = (url: string) => /^https?:\/\//.test(url);
+---
+<ul class:list={['social-links', `social-links--${style}`, className]}>
+  {items.map((item) => (
+    <li class="social-link-item">
+      <a
+        href={item.url}
+        class:list={['social-link', { 'social-link--image': !!item.image }]}
+        style={
+          item.image
+            ? `background-image:url('${item.image}');width:${item.size ?? 50}px;height:${item.size ?? 50}px;`
+            : style === 'default'
+              ? `background-color:${item.color ?? '#000'};color:${item.glyph ?? '#fff'};`
+              : `color:${item.color ?? 'currentColor'};`
+        }
+        target={newTab && external(item.url) ? '_blank' : undefined}
+        rel={newTab && external(item.url) ? 'noopener nofollow' : undefined}
+        aria-label={item.name}
+      >
+        {!item.image && <Icon name={item.icon as IconName} size={24} />}
+        <span class="screen-reader-text">{item.name}</span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .social-link-item { margin: 0; display: flex; }
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    line-height: 0;
+  }
+  .social-link:hover, .social-link:focus { text-decoration: none; transform: scale(1.1); }
+
+  /* default = round badges */
+  .social-links--default .social-link {
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    border-radius: 9999px;
+  }
+  .social-link--image {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: transparent !important;
+    border-radius: 9999px;
+    padding: 0 !important;
+  }
+
+  /* logos-only */
+  .social-links--logos-only .social-link { width: 24px; height: 24px; }
+</style>

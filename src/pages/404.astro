@@ -1,0 +1,21 @@
+---
+/** 404 — Neve default copy minus the search form (SPEC.md §8). */
+import Base from '../layouts/Base.astro';
+---
+<Base title="Page not found" bodyClass="error404">
+  <Fragment slot="head"><meta name="robots" content="noindex" /></Fragment>
+  <div class="container not-found">
+    <h1 class="title">Page not found</h1>
+    <p>It seems we can’t find what you’re looking for. Perhaps searching can help.</p>
+    <ul class="not-found-links">
+      <li><a href="/">Go to the Home page</a></li>
+      <li><a href="/news/">Read the latest News</a></li>
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .not-found { padding-top: 60px; padding-bottom: 60px; }
+  .not-found-links { list-style: none; padding: 0; }
+  .not-found-links li { margin-bottom: 10px; }
+</style>

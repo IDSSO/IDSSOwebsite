@@ -1,0 +1,21 @@
+# Upcoming Events timeline (SPEC.md §6.3). One entry per card, in display order.
+# description_position: "before" = description paragraph above Time/Location; "after" = below.
+- date_label: "April 25"
+  title: "IDS in Focus Capstone Competition"
+  subtitle: "Spring Flagship Event"
+  description: "Teams present AI-enabled information sciences solutions to corporate judges. Network with industry leaders, showcase your work, and compete for prizes. Includes breakfast and career conversations."
+  description_position: before
+  time: "9:30 AM–4:00 PM"
+  location: "Student Center East"
+  register_url: "https://cglink.me/2gA/r2270818"
+  register_label: "Register"
+
+- date_label: "May 1"
+  title: "IDSSO Improv"
+  subtitle: "Facilitator Led Workshop"
+  description: "Participants build their professional presence and form stronger connections with one another in this fun and constructive session."
+  description_position: after
+  time: "1:00 PM – 3:00 PM"
+  location: "EMTSW"
+  register_url: "https://cglink.me/2gA/r2270818"
+  register_label: "Register"

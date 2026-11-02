@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+        env:
+          PUBLIC_FORM_ENDPOINT: ${{ vars.PUBLIC_FORM_ENDPOINT }}
+      - run: npm run links
+      - name: Guard against WordPress leftovers in built HTML
+        run: |
+          # Word-bounded so prose such as "never" does not trip the check. /nmo/ is a verbatim mirror and is excluded.
+          if grep -rEil '\b(wp-content|wp-json|siteground|themeisle|otter|neve)\b' dist --include='*.html' --exclude-dir=nmo ; then
+            echo "Built HTML references WordPress-era strings (see above)."; exit 1
+          fi
+          echo "No WordPress leftovers in built HTML."

@@ -1,0 +1,41 @@
+# GitHub Pages deployment (FALLBACK host; SPEC.md §11.3). Disabled by default: enable by
+# switching "if: false" to "if: true" (or removing it) AND turning on Pages → Source: GitHub Actions.
+# Primary hosting is Cloudflare Pages, which deploys from the repo directly (no workflow needed).
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: withastro/action@v3
+        with:
+          node-version: 20
+        env:
+          PUBLIC_FORM_ENDPOINT: ${{ vars.PUBLIC_FORM_ENDPOINT }}
+
+  deploy:
+    if: false
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,15 @@
+{
+  // Cloudflare Workers (Workers Builds) config. The Workers project name in the Cloudflare
+  // dashboard must match "name" below, or `wrangler deploy` is rejected.
+  // Build command: npm run build     Deploy command: npx wrangler deploy
+  // Cloudflare Pages ignores this file (it uses the dashboard build settings instead).
+  "name": "idssochi",
+  "compatibility_date": "2026-11-02",
+  "assets": {
+    "directory": "./dist",
+    // Serve dist/404.html with a 404 status for unknown routes (Astro's src/pages/404.astro).
+    "not_found_handling": "404-page",
+    // Matches astro.config.mjs: trailingSlash "always" + build.format "directory".
+    "html_handling": "auto-trailing-slash"
+  }
+}

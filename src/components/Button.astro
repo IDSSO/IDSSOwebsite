@@ -1,0 +1,25 @@
+---
+/**
+ * Button variants (SPEC.md §4.6):
+ * neve-primary | wp-outline | wp-default | hero | timeline
+ */
+interface Props {
+  href: string;
+  variant?: 'primary' | 'wp-outline' | 'wp-default' | 'hero' | 'timeline';
+  pill?: boolean;
+  style?: string;
+  class?: string;
+  download?: boolean;
+  target?: string;
+  rel?: string;
+}
+const { href, variant = 'wp-default', pill = false, style, class: className, download, target, rel } = Astro.props;
+---
+<a
+  href={href}
+  class:list={['btn', `btn--${variant}`, { 'is-pill': pill }, className]}
+  style={style}
+  download={download}
+  target={target}
+  rel={rel}
+><slot /></a>

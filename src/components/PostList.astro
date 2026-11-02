@@ -1,0 +1,33 @@
+---
+/** Neve blog archive, "alternative" list layout, no thumbnails (SPEC.md §6.5). */
+import type { CollectionEntry } from 'astro:content';
+import { excerptOf } from '../lib/excerpt';
+
+interface Props { posts: CollectionEntry<'news'>[]; }
+const { posts } = Astro.props;
+---
+<div class="nv-index-posts">
+  {posts.map((post) => (
+    <article class="post layout-alternative">
+      <h2 class="entry-title is-h4"><a href={`/${post.id}/`}>{post.data.title}</a></h2>
+      <ul class="entry-meta">
+        <li class="meta author">by <a href="/news/">{post.data.author}</a></li>
+      </ul>
+      <div class="excerpt"><p>{excerptOf(post)}</p></div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .post { margin-bottom: 40px; }
+  .post:last-child { margin-bottom: 0; }
+  .entry-title.is-h4 {
+    font-size: var(--h4-size);
+    line-height: var(--h4-lh);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .entry-title a { color: var(--nv-text-color); text-decoration: none; }
+  .entry-title a:hover, .entry-title a:focus { color: var(--nv-primary-accent); }
+  .excerpt p { margin: 0; }
+</style>

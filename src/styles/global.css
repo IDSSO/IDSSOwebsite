@@ -1,0 +1,291 @@
+/* ==========================================================================
+   Global styles — reproduces Neve base typography, layout, buttons, utilities.
+   Values come from SPEC.md §4; page-specific styles live in each component.
+   ========================================================================== */
+@import './tokens.css';
+
+/* --- Self-hosted Poppins (latin subset) ---------------------------------- */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/poppins-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/poppins-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/poppins-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* --- Reset / base --------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--nv-site-bg);
+  color: var(--nv-text-color);
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  line-height: var(--body-lh);
+  font-weight: 400;
+  letter-spacing: 0;
+  overflow-x: hidden;
+}
+body.is-menu-sidebar { overflow: hidden; }
+
+#page { display: flex; flex-direction: column; min-height: 100vh; }
+#content { flex: 1 0 auto; }
+
+img, video, object { max-width: 100%; height: auto; }
+img { vertical-align: middle; }
+
+a { color: var(--nv-primary-accent); text-decoration: none; }
+a:hover, a:focus { color: var(--nv-primary-accent); text-decoration: underline; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 var(--h-margin);
+  color: inherit;
+  letter-spacing: 0;
+  text-transform: none;
+}
+h1 { font-size: var(--h1-size); line-height: var(--h1-lh); font-weight: 600; }
+h2 { font-size: var(--h2-size); line-height: var(--h2-lh); font-weight: 600; }
+h3 { font-size: var(--h3-size); line-height: var(--h3-lh); font-weight: 600; }
+h4 { font-size: var(--h4-size); line-height: var(--h4-lh); font-weight: 700; }
+h5 { font-size: var(--h5-size); line-height: var(--h5-lh); font-weight: 700; }
+h6 { font-size: var(--h6-size); line-height: var(--h6-lh); font-weight: 700; }
+
+p { margin: 0 0 var(--p-margin); }
+p:last-child { margin-bottom: 0; }
+ul, ol { margin: 0 0 var(--p-margin); padding-left: 1.5em; }
+li { margin-bottom: 0.25em; }
+hr { border: 0; border-top: 1px solid rgba(39, 38, 38, 0.4); margin: 1.65em auto; }
+blockquote { margin: 0 0 var(--p-margin); }
+strong, b { font-weight: 700; }
+cite { font-style: normal; }
+
+/* WP preset font sizes */
+.has-x-large-font-size { font-size: var(--fs-x-large) !important; }
+.has-large-font-size   { font-size: var(--fs-large) !important; }
+.has-medium-font-size  { font-size: var(--fs-medium) !important; }
+.has-small-font-size   { font-size: var(--fs-small) !important; }
+
+/* WP alignment helpers */
+.has-text-align-center { text-align: center; }
+.has-text-align-left   { text-align: left; }
+.has-text-align-right  { text-align: right; }
+
+/* --- Layout --------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Full-width template content: sections are edge-to-edge; inner content is capped */
+.alignfull {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+.alignwide {
+  width: 100%;
+  max-width: var(--columns-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+.inner-wide {
+  width: 100%;
+  max-width: var(--columns-width);
+  margin: 0 auto;
+}
+
+/* Default-template page body padding (Neve .single-page content) */
+.page-content {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+@media (max-width: 959px) {
+  .page-content { padding-top: 40px; padding-bottom: 40px; }
+}
+
+/* --- Accessibility -------------------------------------------------------- */
+.screen-reader-text,
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100000;
+  background: var(--nv-primary-accent);
+  color: #fff;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+.skip-link:focus {
+  left: 8px;
+  top: 8px;
+  outline: 2px solid #fff;
+  text-decoration: none;
+  color: #fff;
+}
+:focus-visible {
+  outline: 2px solid var(--nv-primary-accent);
+  outline-offset: 2px;
+}
+
+/* --- Buttons (SPEC.md §4.6) ---------------------------------------------- */
+.btn {
+  display: inline-block;
+  font-family: inherit;
+  font-size: var(--body-size);
+  line-height: 1.6;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  border: 0;
+  transition: all 0.2s ease;
+}
+.btn:hover, .btn:focus { text-decoration: none; }
+
+/* Theme .is-style-primary with inline UIC-red colors (spec variant "neve-primary") */
+.btn--primary {
+  padding: 12px 24px;
+  border-radius: 0;
+  font-weight: 700;
+  background: var(--uic-red);
+  color: var(--btn-text-cream);
+}
+.btn--primary:hover, .btn--primary:focus {
+  background: var(--uic-red);
+  color: var(--btn-text-cream);
+  opacity: 0.9;
+}
+
+/* WP core .is-style-outline */
+.btn--wp-outline {
+  padding: 10px 20px;
+  border-radius: 9999px;
+  font-weight: 400;
+  background: transparent;
+  border: 2px solid var(--uic-navy);
+  color: var(--uic-navy);
+}
+.btn--wp-outline:hover, .btn--wp-outline:focus {
+  background: var(--uic-navy);
+  color: #fff;
+}
+
+/* WP core default .wp-element-button */
+.btn--wp-default {
+  padding: 10px 20px;
+  border-radius: 9999px;
+  font-weight: 400;
+  background: var(--wp-btn-default-bg);
+  color: #fff;
+}
+.btn--wp-default:hover, .btn--wp-default:focus {
+  background: #1e2124;
+  color: #fff;
+}
+
+/* Otter timeline "Register" button */
+.btn--timeline {
+  padding: 12px 22px;
+  border-radius: 9999px;
+  font-weight: 400;
+  background: var(--nv-primary-accent);
+  color: #fff;
+}
+.btn--timeline:hover, .btn--timeline:focus {
+  background: #264a8f;
+  color: #fff;
+}
+
+/* Otter hero button group buttons; colors set per button inline */
+.btn--hero {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 400;
+  padding: 15px 30px;
+  border: 0;
+  border-radius: 0;
+  color: #fff;
+  line-height: 1.5;
+}
+.btn--hero.is-pill { border-radius: 9999px; }
+
+/* --- WP separators ----------------------------------------------------------- */
+.wp-separator {
+  border: 0;
+  border-top: 2px solid var(--nv-text-color);
+  width: 100%;
+  margin: 10px 0 20px;
+  opacity: 1;
+}
+.wp-separator--accent {
+  border-top-color: var(--nv-primary-accent);
+  margin: 30px 0;
+}
+
+/* --- Entry meta (news) ----------------------------------------------------- */
+.entry-meta {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: var(--muted-text);
+}
+.entry-meta li { display: inline; }
+.entry-meta a { color: var(--muted-text); }
+.entry-meta a:hover { color: var(--nv-primary-accent); }
+
+/* --- Rich content (news posts) ------------------------------------------- */
+.entry-content h2 { margin-top: 1.2em; }
+.entry-content h3 { margin-top: 1.4em; }
+.entry-content ul, .entry-content ol { margin-bottom: var(--p-margin); }
+.entry-content hr { border-top: 1px solid rgba(39, 38, 38, 0.4); margin: 40px 0; }
+.entry-content a { text-decoration: underline; }
+
+/* Home hero button colors (SPEC.md §6.1). Global because the Button component renders the <a>. */
+.btn--hero.hero-btn--learn  { background: #2f5aae; }
+.btn--hero.hero-btn--join   { background: #18191d; }
+.btn--hero.hero-btn--events { background: #be574b; }
+.btn--hero.hero-btn--nmo    { background: #32373c; }
+.btn--hero.hero-btn--learn:hover,  .btn--hero.hero-btn--learn:focus  { background: #ffffff; color: #2b2b2b; }
+.btn--hero.hero-btn--join:hover,   .btn--hero.hero-btn--join:focus   { background: #ffffff; color: #000000; }
+.btn--hero.hero-btn--events:hover, .btn--hero.hero-btn--events:focus { background: #ffffff; color: #be574b; }
+.btn--hero.hero-btn--nmo:hover,    .btn--hero.hero-btn--nmo:focus    { background: #ffffff; color: #32373c; }

@@ -1,0 +1,109 @@
+---
+/** Home — "/" (SPEC.md §6.1). Full-width template, no page title; hero is edge-to-edge. */
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+
+const description = 'The Information & Decision Sciences Student Organization (IDSSO) is a student-run community dedicated to empowering future leaders in Analytics, Technology, Supply Chain, Operations, and Information Systems.';
+---
+<Base description={description} bodyClass="home page-template-full-width">
+  <!-- Section A — Hero -->
+  <section class="hero alignfull" aria-labelledby="hero-title">
+    <div class="hero-inner">
+      <h1 id="hero-title" class="hero-title">Information and Decision Sciences Student Organization</h1>
+      <h2 class="hero-subtitle">Empowering analytical leaders through community, collaboration, and more at the University of Illinois Chicago.</h2>
+      <div class="hero-buttons">
+        <Button href="/about-us/" variant="hero" class="hero-btn hero-btn--learn">Learn More</Button>
+        <Button href="/new-member-form/" variant="hero" class="hero-btn hero-btn--join">Join IDSSO</Button>
+        <Button href="/upcoming-events/" variant="hero" pill={true} class="hero-btn hero-btn--events">Upcoming events</Button>
+        <Button href="/nmo/" variant="hero" pill={true} class="hero-btn hero-btn--nmo">New Member Orientaion</Button>
+      </div>
+    </div>
+  </section>
+
+  <div class="container home-body">
+    <!-- Section B — Quick links + "Who We Are" heading -->
+    <h2 class="has-text-align-center quick-link"><a href="/new-member-form/"><strong>New Member Form</strong></a></h2>
+    <h2 class="has-text-align-center quick-link"><a href="/nmo/"><strong>New Member Orientation</strong></a></h2>
+    <h2 class="has-text-align-center who-heading">Who We Are</h2>
+
+    <!-- Section C — Who We Are paragraph -->
+    <p class="has-text-align-center lead-21">The Information &amp; Decision Sciences Student Organization (IDSSO) is a student-run community dedicated to empowering future leaders in Analytics, Technology, Supply Chain, Operations, and Information Systems.<br />We promote collaboration, career development, professional growth, and academic excellence within the UIC business community.</p>
+
+    <!-- Section D — Join IDSSO -->
+    <h2 class="has-text-align-center">Join IDSSO</h2>
+    <p class="has-text-align-center lead-21">Become part of a supportive community committed to professional development, leadership, and connecting members with opportunities in information and decision science topics.</p>
+
+    <!-- Section E — Benefits of Joining (h2 styled at the 42px x-large size; see CONTENT_NOTES.md #4) -->
+    <h2 class="has-text-align-center has-x-large-font-size benefits-heading">Benefits of Joining</h2>
+    <p class="has-text-align-center lead-21">-Join a Growing Organization of Professionals in IDS Topics such as Information Systems, Artificial Intelligence, Supply Chain, Analytics</p>
+    <p class="has-text-align-center lead-21">-Technical and Professional Development Programming</p>
+    <p class="has-text-align-center lead-21">-Demonstrate and Develop Leadership</p>
+    <p class="has-text-align-center lead-21">-Network with Peers and Employers</p>
+    <p class="has-text-align-center lead-21">-Newsletter</p>
+  </div>
+</Base>
+
+<style>
+  .hero {
+    background: url('/uploads/2025/12/UIC_Campus-scaled.jpg') no-repeat 50% 15% / cover;
+    background-attachment: scroll;
+    padding: 80px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 960px) { .hero { padding: 40px 20px; } }
+  .hero-inner {
+    width: 100%;
+    max-width: var(--columns-width);
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-title,
+  .hero-subtitle {
+    display: inline-block;
+    color: #ffffff;
+    background: var(--hero-box-bg);
+    padding: 1.25em 2.375em;
+    border-radius: 0;
+    text-transform: none;
+    margin: 0 0 20px;
+    max-width: 100%;
+  }
+  .hero-title {
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1.3;
+    border: 7px solid var(--hero-title-border);
+  }
+  .hero-subtitle {
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.4;
+    border: 7px solid var(--uic-red);
+  }
+  .hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  @media (max-width: 600px) {
+    .hero-buttons { flex-direction: column; align-items: stretch; width: 100%; }
+    .hero-buttons :global(.btn) { width: 100%; }
+    .hero-title, .hero-subtitle { padding: 1em 1.25em; }
+  }
+
+  .home-body { padding-top: 60px; padding-bottom: 90px; }
+  .quick-link { margin-bottom: 20px; }
+  .quick-link a { color: var(--nv-primary-accent); text-decoration: none; font-weight: 700; }
+  .quick-link a:hover { text-decoration: underline; }
+  .who-heading { color: var(--nv-text-color); margin-top: 20px; }
+  .lead-21 { font-size: 21px; line-height: 1.6; }
+  .benefits-heading { font-weight: 600; line-height: 1.3; margin-top: 10px; }
+</style>

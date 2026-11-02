@@ -1,0 +1,19 @@
+---
+/** Upcoming Events — "/upcoming-events/" (SPEC.md §6.3). Default template with page title. */
+import Base from '../layouts/Base.astro';
+import PageTitle from '../components/PageTitle.astro';
+import Timeline from '../components/Timeline.astro';
+import { events } from '../lib/data';
+
+const description = 'Upcoming IDSSO events at the University of Illinois Chicago, including the IDS in Focus Capstone Competition and facilitator-led workshops.';
+---
+<Base title="Upcoming Events" description={description} bodyClass="page">
+  <PageTitle title="Upcoming Events" />
+  <div class="container events-content">
+    <Timeline items={events} />
+  </div>
+</Base>
+
+<style>
+  .events-content { padding-bottom: 60px; }
+</style>

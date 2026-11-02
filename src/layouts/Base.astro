@@ -1,0 +1,73 @@
+---
+/**
+ * Base layout: <head>, skip link, Header, <main id="content">, Footer, ScrollToTop.
+ * Title format (SPEC.md §2):
+ *   home  → "Information and Decision Sciences Student Organization – IDSSO"
+ *   other → "{Page Title} – Information and Decision Sciences Student Organization"
+ */
+import '../styles/global.css';
+import site from '../data/site.json';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+
+interface Props {
+  title?: string;           // page title; omit on home
+  description?: string;     // meta description (addition; not on live site)
+  bodyClass?: string;
+  ogType?: 'website' | 'article';
+}
+
+const { title, description, bodyClass, ogType = 'website' } = Astro.props;
+
+const isHome = Astro.url.pathname === '/';
+const fullTitle = isHome || !title
+  ? `${site.title} – ${site.tagline}`
+  : `${title} – ${site.title}`;
+
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL(site.ogImage.src, site.url).href;
+---
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <meta name="robots" content="max-image-preview:large" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href={site.icons.icon32} sizes="32x32" />
+    <link rel="icon" href={site.icons.icon192} sizes="192x192" />
+    <link rel="apple-touch-icon" href={site.icons.appleTouch} />
+
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content={String(site.ogImage.width)} />
+    <meta property="og:image:height" content={String(site.ogImage.height)} />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preload" href="/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin />
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <div id="page" class="site">
+      <Header />
+      <main id="content" class="site-main" tabindex="-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+    <ScrollToTop />
+  </body>
+</html>

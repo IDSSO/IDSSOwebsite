@@ -1,0 +1,80 @@
+---
+/**
+ * Single news post — "/{slug}/" (SPEC.md §6.8, §7).
+ * WordPress permalinks were /%postname%/, so posts live at the site root.
+ * Right sidebar (30%) holds Recent Posts; comments/search/recent-comments are intentionally omitted.
+ */
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { excerptOf } from '../lib/excerpt';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('news');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const allPosts = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const description = post.data.description ?? excerptOf(post);
+---
+<Base title={post.data.title} description={description} bodyClass="single single-post" ogType="article">
+  <Fragment slot="head">
+    <meta property="article:published_time" content={post.data.date.toISOString()} />
+    <meta property="article:author" content={post.data.author} />
+  </Fragment>
+
+  <div class="container single-layout">
+    <article class="post-content">
+      <header class="entry-header">
+        <h1 class="title entry-title">{post.data.title}</h1>
+        <ul class="entry-meta">
+          <li class="meta author">by <a href="/news/">{post.data.author}</a></li>
+        </ul>
+      </header>
+      <div class="entry-content">
+        <Content />
+      </div>
+    </article>
+
+    <aside class="nv-sidebar" aria-label="Blog Sidebar">
+      <section class="widget widget_recent_entries">
+        <h4 class="widget-title">Recent Posts</h4>
+        <ul>
+          {allPosts.map((p) => (
+            <li><a href={`/${p.id}/`} aria-current={p.id === post.id ? 'page' : undefined}>{p.data.title}</a></li>
+          ))}
+        </ul>
+      </section>
+    </aside>
+  </div>
+</Base>
+
+<style>
+  .single-layout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .post-content { flex: 1 1 100%; min-width: 0; }
+  .nv-sidebar { flex: 1 1 100%; margin-top: 40px; }
+  @media (min-width: 960px) {
+    .post-content { flex: 0 0 70%; max-width: 70%; padding-right: 30px; }
+    .nv-sidebar { flex: 0 0 30%; max-width: 30%; margin-top: 0; padding-left: 15px; }
+  }
+  @media (max-width: 959px) {
+    .single-layout { padding-top: 40px; padding-bottom: 40px; }
+  }
+  .entry-header { margin-bottom: 30px; }
+  .entry-title { margin-bottom: 15px; }
+  .widget { margin-bottom: 30px; }
+  .widget-title { font-size: 20px; font-weight: 700; margin-bottom: 15px; }
+  .widget ul { list-style: none; margin: 0; padding: 0; }
+  .widget li { margin: 0 0 10px; }
+  .widget a { color: var(--nv-text-color); }
+  .widget a:hover { color: var(--nv-primary-accent); }
+</style>
